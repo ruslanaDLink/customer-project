@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.babiak.ruslana.customer.project.exception.ProductNotFoundException;
 import pl.babiak.ruslana.customer.project.model.Product;
+import pl.babiak.ruslana.customer.project.repository.entity.ProductEntity;
 import pl.babiak.ruslana.customer.project.service.ProductService;
 
 import java.util.List;
@@ -22,6 +25,11 @@ public class ProductController {
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
+    }
+
+    @PostMapping("/newProduct")
+    public void addProduct(@RequestBody ProductEntity product) {
+        productService.addProduct(product);
     }
 
     @GetMapping("/product/{id}")
