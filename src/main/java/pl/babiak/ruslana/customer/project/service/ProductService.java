@@ -2,6 +2,7 @@ package pl.babiak.ruslana.customer.project.service;
 
 import org.springframework.stereotype.Service;
 import pl.babiak.ruslana.customer.project.model.Product;
+import pl.babiak.ruslana.customer.project.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,22 +10,17 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-    private List<Product> products;
+    private ProductRepository productRepository;
 
-    public ProductService() {
-        products = new ArrayList<>();
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     public Optional<Product> getProduct(long id) {
-        for (Product product : products) {
-            if (product.getId() == id) {
-                return Optional.of(product);
-            }
-        }
-        return Optional.empty();
+        return productRepository.findById(id);
     }
 
-    public Optional<List<Product>> getAllProducts() {
-        return Optional.ofNullable(products);
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 }
