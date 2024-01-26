@@ -5,15 +5,17 @@ import java.util.List;
 
 public class Order {
     private long id;
+    private List<Product> products;
     private LocalDateTime date;
     private double price;
-    private List<Product> products;
 
-    public Order(long id, List<Product> products, LocalDateTime date, double price) {
+    public Order(long id, List<Product> products, LocalDateTime date) {
         this.products = products;
         this.id = id;
         this.date = date;
-        this.price = price;
+        for (Product product : products) {
+            price += product.getCost();
+        }
     }
 
     public long getId() {
@@ -46,5 +48,15 @@ public class Order {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", date=" + date +
+                ", price=" + price +
+                ", products=" + products +
+                '}';
     }
 }
