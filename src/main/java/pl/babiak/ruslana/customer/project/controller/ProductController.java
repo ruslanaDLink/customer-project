@@ -41,7 +41,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @DeleteMapping("/products/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteProduct(@RequestParam("id") long id) {
         productService.deleteProduct(id);
     }
