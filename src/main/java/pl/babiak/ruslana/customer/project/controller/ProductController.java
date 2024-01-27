@@ -1,5 +1,6 @@
 package pl.babiak.ruslana.customer.project.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import pl.babiak.ruslana.customer.project.exception.ProductNotFoundException;
 import pl.babiak.ruslana.customer.project.model.Product;
 import pl.babiak.ruslana.customer.project.repository.entity.ProductEntity;
 import pl.babiak.ruslana.customer.project.service.ProductService;
+import pl.babiak.ruslana.customer.project.service.mapper.ProductMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,12 +30,14 @@ public class ProductController {
     }
 
     @PostMapping("/newProduct")
-    public void addProduct(@RequestBody ProductEntity product) {
+    public void addProduct(@Valid @RequestBody ProductEntity product) {
+        ProductMapper mapper = new ProductMapper();
+        mapper.map(product);
         productService.addProduct(product);
     }
 
     @GetMapping("/product/{id}")
-    public Product getProduct(@RequestParam long id) throws ProductNotFoundException {
+    public Product getProduct(@PathVariable long id) throws ProductNotFoundException {
         return productService.getProduct(id);
     }
 
@@ -43,7 +47,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/delete/{id}")
-    public void deleteProduct(@PathVariable("id") long id) {
+    public void deleteProduct(@RequestParam("id") long id) {
         productService.deleteProduct(id);
     }
 }
