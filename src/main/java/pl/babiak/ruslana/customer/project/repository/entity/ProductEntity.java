@@ -8,14 +8,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Product")
+@Table(name = "PRODUCTS")
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name="name")
+    @Column(name="NAME")
     private String product;
-    @Column(name="cost")
+    @Column(name="COST")
     private double cost;
 
     public ProductEntity() {}

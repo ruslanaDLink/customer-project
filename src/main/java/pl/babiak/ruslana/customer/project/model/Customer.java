@@ -3,12 +3,10 @@ package pl.babiak.ruslana.customer.project.model;
 public class Customer {
     private long id;
     private String name;
-    private Order order;
 
-    public Customer(long id, String name, Order order) {
+    public Customer(long id, String name) {
         this.id = id;
         this.name = name;
-        this.order = order;
     }
 
     public long getId() {
@@ -27,20 +25,11 @@ public class Customer {
         this.name = name;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", order=" + order +
                 '}';
     }
 }
