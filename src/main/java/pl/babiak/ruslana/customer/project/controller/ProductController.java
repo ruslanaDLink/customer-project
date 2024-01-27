@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.babiak.ruslana.customer.project.exception.ProductNotFoundException;
 import pl.babiak.ruslana.customer.project.model.Product;
-import pl.babiak.ruslana.customer.project.repository.entity.ProductEntity;
 import pl.babiak.ruslana.customer.project.service.ProductService;
-import pl.babiak.ruslana.customer.project.service.mapper.ProductMapper;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -30,9 +27,7 @@ public class ProductController {
     }
 
     @PostMapping("/newProduct")
-    public void addProduct(@Valid @RequestBody ProductEntity product) {
-        ProductMapper mapper = new ProductMapper();
-        mapper.map(product);
+    public void addProduct(@Valid @RequestBody Product product) {
         productService.addProduct(product);
     }
 
