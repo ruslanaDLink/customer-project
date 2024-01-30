@@ -8,13 +8,15 @@ import pl.babiak.ruslana.customer.project.repository.entity.CustomerEntity;
 public class CustomerMapper {
 
     public Customer map(CustomerEntity entity) {
-        return new Customer(entity.getId(), entity.getName());
+        return new Customer(entity.getId(), entity.getName(), entity.getEmail(), entity.getPostalCode());
     }
 
     public CustomerEntity map(Customer customer) {
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setId(customer.getId());
         customerEntity.setName(customer.getName());
+        customerEntity.setEmail(customer.getEmail());
+        customerEntity.setPostalCode(customer.getPostalCode());
         return customerEntity;
     }
 }
