@@ -11,11 +11,11 @@ public class ProductMapper {
         return new Product(entity.getId(), entity.getProduct(), entity.getCost());
     }
 
-    public ProductEntity map(Product entity) {
+    public ProductEntity map(Product product) {
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(entity.getId());
-        productEntity.setProduct(entity.getProduct());
-        productEntity.setCost(entity.getCost());
+        productEntity.setId(product.getId());
+        productEntity.setProduct(product.getProduct());
+        productEntity.setCost(product.getCost());
         return productEntity;
     }
 }
