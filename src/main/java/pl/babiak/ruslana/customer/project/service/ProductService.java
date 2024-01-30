@@ -22,8 +22,7 @@ public class ProductService {
     }
 
     public void addProduct(Product product) {
-        ProductMapper mapper = new ProductMapper();
-        productRepository.save(mapper.map(product));
+        productRepository.save(productMapper.map(product));
     }
 
     public Product getProduct(long id) throws ProductNotFoundException {

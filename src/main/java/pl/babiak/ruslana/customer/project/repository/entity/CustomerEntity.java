@@ -15,6 +15,10 @@ public class CustomerEntity {
     private long id;
     @Column(name = "NAME")
     private String name;
+    @Column(name = "EMAIL")
+    private String email;
+    @Column(name = "POSTAL_CODE")
+    private String postalCode;
 
     public CustomerEntity() {
     }
@@ -35,11 +39,29 @@ public class CustomerEntity {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     @Override
     public String toString() {
-        return "CustomerService{" +
+        return "CustomerEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", postalCode='" + postalCode + '\'' +
                 '}';
     }
 }

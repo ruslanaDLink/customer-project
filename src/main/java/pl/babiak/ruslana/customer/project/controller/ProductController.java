@@ -17,7 +17,7 @@ import pl.babiak.ruslana.customer.project.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/products")
+@RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
 
