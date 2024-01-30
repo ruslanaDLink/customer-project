@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Table(name = "CUSTOMERS")
 public class CustomerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(name = "NAME")
     private String name;

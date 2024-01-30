@@ -24,7 +24,7 @@ public class CustomerService {
     public Customer getCustomer(long id) throws CustomerNotFoundException {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findById(id);
         CustomerEntity customerEntity = optionalCustomer.orElseThrow(
-                () -> new CustomerNotFoundException("Customer doesn't exist.")
+                () -> new CustomerNotFoundException("Failed to get customer: " + id)
         );
         return customerMapper.map(customerEntity);
     }
@@ -36,7 +36,7 @@ public class CustomerService {
         return customers;
     }
 
-    public Customer updateCustomer(Customer customer) throws CustomerNotFoundException {
+    public Customer updateCustomer(Customer customer) {
         List<CustomerEntity> customers = customerRepository.findAll();
         Customer updatedCustomer = null;
         for (CustomerEntity entity : customers) {

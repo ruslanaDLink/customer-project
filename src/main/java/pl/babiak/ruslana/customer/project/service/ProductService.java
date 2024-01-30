@@ -28,7 +28,7 @@ public class ProductService {
     public Product getProduct(long id) throws ProductNotFoundException {
         Optional<ProductEntity> productById = productRepository.findById(id);
         ProductEntity productEntity = productById.orElseThrow(
-                () -> new ProductNotFoundException("No such product founded."));
+                () -> new ProductNotFoundException("Failed to get product: " + id));
         return productMapper.map(productEntity);
     }
 
@@ -41,7 +41,7 @@ public class ProductService {
         return products;
     }
 
-    public void deleteProduct(long id){
+    public void deleteProduct(long id) {
         productRepository.deleteById(id);
     }
 }

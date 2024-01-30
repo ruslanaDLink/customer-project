@@ -25,7 +25,6 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-
     @GetMapping("/customer/{id}")
     public Customer getCustomer(@PathVariable long id) throws CustomerNotFoundException {
         return customerService.getCustomer(id);
