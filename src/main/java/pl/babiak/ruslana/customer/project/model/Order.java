@@ -5,11 +5,13 @@ import java.util.List;
 
 public class Order {
     private long id;
+    private Customer customer;
     private List<Product> products;
     private LocalDateTime date;
     private double price;
 
-    public Order(long id, List<Product> products, LocalDateTime date) {
+    public Order(long id, Customer customer, List<Product> products, LocalDateTime date) {
+        this.customer = customer;
         this.products = products;
         this.id = id;
         this.date = date;
@@ -24,6 +26,14 @@ public class Order {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public List<Product> getProducts() {
@@ -54,9 +64,10 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
+                ", customer=" + customer +
+                ", products=" + products +
                 ", date=" + date +
                 ", price=" + price +
-                ", products=" + products +
                 '}';
     }
 }

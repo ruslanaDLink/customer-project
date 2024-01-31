@@ -1,6 +1,7 @@
 package pl.babiak.ruslana.customer.project.service.mapper;
 
 import org.springframework.stereotype.Component;
+import pl.babiak.ruslana.customer.project.model.Customer;
 import pl.babiak.ruslana.customer.project.model.Order;
 import pl.babiak.ruslana.customer.project.model.Product;
 import pl.babiak.ruslana.customer.project.repository.entity.OrderEntity;
@@ -35,7 +36,13 @@ public class OrderMapper {
     }
 
     public Order map(OrderEntity entity) {
-        return new Order(entity.getId(), mapToProduct(entity.getProducts()), entity.getDate());
+        CustomerMapper customerMapper = new CustomerMapper();
+        return new Order(
+                entity.getId(),
+                customerMapper.map(entity.getCustomer()),
+                mapToProduct(entity.getProducts()),
+                entity.getDate()
+        );
     }
 
     public OrderEntity map(Order order) {
