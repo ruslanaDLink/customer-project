@@ -1,7 +1,6 @@
 package pl.babiak.ruslana.customer.project.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,6 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
 
-    @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -42,7 +40,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteProduct(@RequestParam("id") long id) {
+    public void deleteProduct(@Valid @RequestParam("id") long id) {
         productService.deleteProduct(id);
     }
 }
