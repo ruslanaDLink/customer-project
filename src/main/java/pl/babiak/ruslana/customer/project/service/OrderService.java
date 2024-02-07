@@ -37,11 +37,7 @@ public class OrderService {
     public List<Order> getOrderList() {
         List<OrderEntity> entities = orderRepository.findAll();
         List<Order> orders = new ArrayList<>();
-        Order order;
-        for (OrderEntity entity : entities) {
-            order = orderMapper.map(entity);
-            orders.add(order);
-        }
+        entities.forEach(x -> orders.add(orderMapper.map(x)));
         return orders;
     }
 
