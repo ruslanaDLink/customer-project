@@ -1,5 +1,6 @@
 package pl.babiak.ruslana.customer.project.controller;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import pl.babiak.ruslana.customer.project.service.mapper.ProductMapper;
 import java.util.List;
 
 @SpringBootTest
-class ProductControllerTest {
+public class ProductControllerTest {
     @Autowired
     private ProductRepository repository;
 
@@ -35,10 +36,10 @@ class ProductControllerTest {
         Product product = new Product(65234, "Fake Lizard", 19.99);
 
         //when
-        controller.addProduct(product);
+        Product addedProduct = controller.addProduct(product);
 
         //then
-        Assertions.assertNotNull(controller.getProduct(product.getId()));
+        Assertions.assertNotNull(controller.getProduct(addedProduct.getId()));
     }
 
     @Test
@@ -47,13 +48,13 @@ class ProductControllerTest {
         Product product = new Product(65235, "Barber Scissors", 69.99);
 
         //when
-        controller.addProduct(product);
+        Product addedProduct = controller.addProduct(product);
         List<Product> productList = controller.getAllProducts();
 
         //then
         Assertions.assertAll(
                 () -> Assertions.assertThrows
-                        (ProductNotFoundException.class, () -> controller.getProduct(product.getId())),
+                        (ProductNotFoundException.class, () -> controller.getProduct(addedProduct.getId())),
                 () -> Assertions.assertNotNull(productList, "Product list is empty.")
         );
 
@@ -83,5 +84,12 @@ class ProductControllerTest {
 
         //then
         Assertions.assertFalse(productList.contains(product), "Product still exists.");
+    }
+
+    @AfterEach
+    void tearDown() {
+        mapper = null;
+        service = null;
+        controller = null;
     }
 }

@@ -24,6 +24,11 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    @PostMapping("/newCustomer")
+    public Customer addCustomer(@RequestBody Customer customer) {
+        return customerService.addCustomer(customer);
+    }
+
     @GetMapping("/customer/{id}")
     public Customer getCustomer(@PathVariable long id) throws CustomerNotFoundException {
         return customerService.getCustomer(id);
@@ -35,8 +40,8 @@ public class CustomerController {
     }
 
     @PostMapping("/update")
-    public Customer updateCustomer(@RequestBody Customer customer) {
-        return customerService.updateCustomer(customer);
+    public Customer updateCustomer(@RequestBody Customer customer, long id) throws CustomerNotFoundException {
+        return customerService.updateCustomer(customer, id);
     }
 
     @DeleteMapping("/delete/{id}")
