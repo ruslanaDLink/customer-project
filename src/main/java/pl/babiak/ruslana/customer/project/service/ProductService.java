@@ -41,6 +41,16 @@ public class ProductService {
         return products;
     }
 
+    public Product updateProduct(Product product, long id) throws ProductNotFoundException {
+        Optional<ProductEntity> optionalProduct = productRepository.findById(id);
+        ProductEntity productEntity = optionalProduct.orElseThrow(() -> new ProductNotFoundException("Failed to return id."));
+        Product updateProduct = productMapper.map(productEntity);
+        updateProduct.setId(product.getId());
+        updateProduct.setProduct(product.getProduct());
+        updateProduct.setCost(product.getCost());
+        return updateProduct;
+    }
+
     public void deleteProduct(long id) {
         productRepository.deleteById(id);
     }

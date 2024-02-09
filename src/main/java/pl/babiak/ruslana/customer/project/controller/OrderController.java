@@ -40,7 +40,7 @@ public class OrderController {
     }
 
     @PostMapping("/update/order{id}")
-    public Order updateOrder(@PathVariable long id, Order order) throws OrderNotFoundException {
+    public Order updateOrder(@PathVariable long id, @RequestBody Order order) throws OrderNotFoundException {
         return orderService.updateOrder(id, order);
     }
 
