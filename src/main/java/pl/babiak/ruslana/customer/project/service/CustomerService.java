@@ -21,6 +21,11 @@ public class CustomerService {
         this.customerMapper = customerMapper;
     }
 
+    public Customer addCustomer(Customer customer) {
+        CustomerEntity entity = customerRepository.save(customerMapper.map(customer));
+        return customerMapper.map(entity);
+    }
+
     public Customer getCustomer(long id) throws CustomerNotFoundException {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findById(id);
         CustomerEntity customerEntity = optionalCustomer.orElseThrow(
@@ -36,18 +41,16 @@ public class CustomerService {
         return customers;
     }
 
-    public Customer updateCustomer(Customer customer) {
-        List<CustomerEntity> customers = customerRepository.findAll();
-        Customer updatedCustomer = null;
-        for (CustomerEntity entity : customers) {
-            Customer mappedCustomer = customerMapper.map(entity);
-            if (mappedCustomer.getId() == customer.getId()) {
-                mappedCustomer.setName(customer.getName());
-                mappedCustomer.setEmail(customer.getEmail());
-                mappedCustomer.setPostalCode(customer.getPostalCode());
-                updatedCustomer = mappedCustomer;
-            }
-        }
+    public Customer updateCustomer(Customer customer, long id) throws CustomerNotFoundException {
+        Optional<CustomerEntity> optionalCustomer = customerRepository.findById(id);
+        CustomerEntity customerEntity = optionalCustomer.orElseThrow(
+                () -> new CustomerNotFoundException("Failed to search customer by id " + id)
+        );
+        Customer updatedCustomer = customerMapper.map(customerEntity);
+        updatedCustomer.setId(customer.getId());
+        updatedCustomer.setName(customer.getName());
+        updatedCustomer.setPostalCode(customer.getPostalCode());
+        updatedCustomer.setEmail(customer.getEmail());
         return updatedCustomer;
     }
 

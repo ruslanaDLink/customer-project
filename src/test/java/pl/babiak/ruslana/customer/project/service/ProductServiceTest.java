@@ -1,5 +1,6 @@
 package pl.babiak.ruslana.customer.project.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +34,10 @@ class ProductServiceTest {
         Product product = new Product(7656, "Bird Cage", 105.50);
 
         //when
-        service.addProduct(product);
+        Product addedProduct = service.addProduct(product);
 
         //then
-        Assertions.assertNotNull(service.getProduct(product.getId()), "create() method failed to create a new product.");
+        Assertions.assertNotNull(service.getProduct(addedProduct.getId()), "create() method failed to create a new product.");
     }
 
     @Test
@@ -45,8 +46,8 @@ class ProductServiceTest {
         Product newProduct = new Product(253L, "Dyson", 500.00);
 
         //when
-        service.addProduct(newProduct);
-        Product product = service.getProduct(newProduct.getId());
+        Product addedProduct = service.addProduct(newProduct);
+        Product product = service.getProduct(addedProduct.getId());
 
         //then
         Assertions.assertThrows(ProductNotFoundException.class, () -> service.getProduct(product.getId()));
@@ -59,11 +60,16 @@ class ProductServiceTest {
         Product product2 = new Product(3751, "Toy for kids: Dinosaur", 75.50);
 
         //when
-        service.addProduct(product1);
-        Product updatedProduct = service.updateProduct(product2, product1.getId());
+        Product addedProduct = service.addProduct(product1);
+        Product updatedProduct = service.updateProduct(product2, addedProduct.getId());
 
         //then
-        Assertions.assertNotEquals(product1.getCost(), updatedProduct.getCost(), "Product is not updated.");
+        Assertions.assertAll(
+                () -> Assertions.assertNotEquals(addedProduct.getCost(), updatedProduct.getCost(),
+                        "Product is not updated."),
+                () -> Assertions.assertEquals(updatedProduct.getId(), addedProduct.getId(),
+                        "Failed to update. Customers with different ids.")
+        );
     }
 
     @Test
@@ -79,5 +85,11 @@ class ProductServiceTest {
 
         //then
         Assertions.assertFalse(contains, "Failed to delete product.");
+    }
+
+    @AfterEach
+    void tearDown() {
+        mapper = null;
+        service = null;
     }
 }
