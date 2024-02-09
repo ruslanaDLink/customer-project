@@ -35,7 +35,7 @@ public class CustomerController {
     }
 
     @PostMapping("/update")
-    public Customer updateCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
+    public Customer updateCustomer(@RequestBody Customer customer) {
         return customerService.updateCustomer(customer);
     }
 

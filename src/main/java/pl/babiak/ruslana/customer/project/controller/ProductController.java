@@ -39,6 +39,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @PostMapping("/update/{id}")
+    public Product updateProduct(@RequestBody Product product, @PathVariable long id) throws ProductNotFoundException {
+        return productService.updateProduct(product, id);
+    }
+
     @DeleteMapping("/delete/{id}")
     public void deleteProduct(@Valid @RequestParam("id") long id) {
         productService.deleteProduct(id);
